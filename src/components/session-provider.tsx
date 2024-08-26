@@ -1,7 +1,7 @@
 "use client";
-import { createClient } from "@/lib/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
+import { createClient } from "../../supabase/client";
 
 const SessionContext = createContext<Session | null>(null);
 export const useSession = () => {
