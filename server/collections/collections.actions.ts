@@ -74,7 +74,7 @@ export async function fetchCollections(userId: string) {
   return data;
 }
 
-export async function fetchCollection(userId: string, collectionId: string) {
+export async function fetchCollection(collectionId: string) {
   const supabase = createClient();
 
   const {
@@ -87,14 +87,10 @@ export async function fetchCollection(userId: string, collectionId: string) {
     throw new Error("Failed to get user");
   }
 
-  if (user.id !== userId) {
-    throw new Error("Unauthorized");
-  }
-
   const { data, error } = await supabase
     .from("collections")
     .select("*")
-    .eq("user_id", userId)
+    .eq("user_id", user.id)
     .eq("id", collectionId)
     .single();
   if (error) {
