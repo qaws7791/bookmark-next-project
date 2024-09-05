@@ -1,5 +1,6 @@
 "use client";
 import { Session } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "../../supabase/client";
 
@@ -17,6 +18,7 @@ export default function SessionProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
@@ -26,6 +28,7 @@ export default function SessionProvider({
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
+        router.push("/");
         setSession(null);
       } else if (session) {
         setSession(session);
@@ -36,7 +39,7 @@ export default function SessionProvider({
     return () => {
       subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, [supabase, router]);
 
   if (loading) {
     return null;
