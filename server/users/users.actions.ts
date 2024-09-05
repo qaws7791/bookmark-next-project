@@ -29,3 +29,8 @@ export async function fetchProfile(userId: string) {
 
   return data;
 }
+
+export async function logout() {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+}
