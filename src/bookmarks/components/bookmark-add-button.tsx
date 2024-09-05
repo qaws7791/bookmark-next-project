@@ -6,12 +6,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Plus } from "lucide-react";
 
 interface BookmarkAddButtonProps {
@@ -23,20 +17,12 @@ export default function BookmarkAddButton({
 }: BookmarkAddButtonProps) {
   return (
     <Dialog>
-      <TooltipProvider>
-        <Tooltip>
-          <DialogTrigger asChild>
-            <TooltipTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Plus />
-              </Button>
-            </TooltipTrigger>
-          </DialogTrigger>
-          <TooltipContent>
-            <p>Add to bookmark</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <DialogTrigger asChild>
+        <Button>
+          <Plus className="mr-2 w-4 h-4" />
+          Add bookmark
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogTitle className="sr-only">Add to bookmark</DialogTitle>
         <BookmarkAddForm collectionId={collectionId} />
